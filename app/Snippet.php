@@ -10,6 +10,24 @@ class Snippet extends Model
     const ACCESS_UNLISTED = 'unlisted';
     const ACCESS_PRIVATE = 'private';
 
+    /**
+     *  Setup model event hooks
+     */
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = uniqid();
+        });
+    }
+
+    protected $fillable = [
+        'title',
+        'code',
+        'access',
+        'syntax'
+    ];
+
     static public function accessStates()
     {
         return [
@@ -17,6 +35,16 @@ class Snippet extends Model
             self::ACCESS_UNLISTED,
             self::ACCESS_PRIVATE
         ];
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 
     public function user()

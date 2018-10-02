@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $snippets = \App\Snippet::all();
+    return view('welcome')->withSnippets($snippets);
 });
 
 Auth::routes();
