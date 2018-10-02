@@ -17,7 +17,7 @@ class CreateSnippetsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->uuid('hash')->unique();
+            $table->uuid('uuid')->unique();
             $table->string('title');
             $table->text('code');
             $table->dateTime('expiration')->nullable();
