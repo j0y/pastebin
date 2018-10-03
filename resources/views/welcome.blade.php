@@ -5,25 +5,15 @@
         <form action="/" method="post" accept-charset="utf-8">
             {{ csrf_field() }}
             <div class="row">
-                <div class="form-group col-xs-12 @if ($errors->has('pasteTitle')) has-error @endif">
+                <div class="form-group col-xs-12">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="Title (optional)" value="{{ old('title') }}">
-                    @if ($errors->has('title'))
-                        <span class="help-block">
-					<strong>{{ $errors->first('title') }}</strong>
-				</span>
-                    @endif
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-xs-12 @if ($errors->has('code')) has-error @endif">
+                <div class="form-group col-xs-12">
                     <label for="code">Code</label>
                     <textarea class="form-control input-sm" name="code" id="code" placeholder="Paste your text here...">{{ old('code') }}</textarea>
-                    @if ($errors->has('pasteContent'))
-                        <span class="help-block">
-					<strong>{{ $errors->first('code') }}</strong>
-				</span>
-                    @endif
                 </div>
             </div>
             <div class="row">
@@ -67,12 +57,7 @@
             @endif
             <div class="row">
                 <div class="form-group text-center">
-                    <script>
-                        $(function () {
-                            $('[data-toggle="tooltip"]').tooltip()
-                        })
-                    </script>
-                    <button type="submit" id="submit" class="btn @if (count($errors) > 0) btn-danger @else btn-outline-success @endif  btn-lg">Submit</button>
+                    <button type="submit" id="submit" class="btn btn-lg">Submit</button>
                 </div>
             </div>
         </form>
