@@ -12,7 +12,7 @@ class SnippetController extends Controller
 {
     public function index()
     {
-        $snippets = Snippet::latest()->take(10)->get();
+        $snippets = Snippet::latest()->public()->take(10)->get();
         return view('welcome')->withSnippets($snippets);
     }
 
@@ -62,5 +62,21 @@ class SnippetController extends Controller
         ]);
 
         return redirect('/' . $uuid);
+    }
+
+
+    public function view($uuid, Request $request){
+        $snippet = Snippet::where('uuid', $uuid)->firstOrFail();
+
+        $isSameUser = (Auth::user() == $snippet->user && is_null($snippet->userId));
+
+        if ($snippet->access == "private" && !$isSameUser) {
+            abort('404');
+        }
+
+        return view('view', [
+            'username' => ($snippet->userId != 0) ? $snippet->user->name : "Guest",
+            'snippet' => $snippet,
+        ]);
     }
 }

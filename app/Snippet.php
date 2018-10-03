@@ -21,7 +21,7 @@ class Snippet extends Model
         parent::boot();
 
         static::addGlobalScope('notExpired', function (Builder $builder) {
-            $builder->whereDate('expiration', '>', date("Y-m-d H:i:s"))
+            $builder->where('expiration', '>', date("Y-m-d H:i:s"))
                     ->orWhereNull('expiration');
         });
     }
@@ -52,6 +52,17 @@ class Snippet extends Model
     public function getRouteKeyName()
     {
         return 'uuid';
+    }
+
+    /**
+     * Scope a query to only include active users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublic($query)
+    {
+        return $query->where('access', self::ACCESS_PUBLIC);
     }
 
     public function user()
