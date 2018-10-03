@@ -80,12 +80,24 @@
         </main>
         <footer>
             <div class="container">
-                Last public snippets:
-                <ul>
-                @foreach ($publicSnippets as $snippet)
-                    <li><a href="{{ $snippet->uuid }}">{{ $snippet->title }}</a></li>
-                @endforeach
-                </ul>
+                <div class="col-md-6">
+                    Last public snippets:
+                    <ul>
+                    @foreach ($publicSnippets as $snippet)
+                        <li><a href="{{ $snippet->uuid }}">{{ $snippet->title }}</a></li>
+                    @endforeach
+                    </ul>
+                </div>
+                @if (Auth::check() && $mySnippets->count() != 0)
+                    <div class="col-md-6">
+                        My last snippets:
+                        <ul>
+                            @foreach ($mySnippets as $snippet)
+                                <li><a href="{{ $snippet->uuid }}">{{ $snippet->title }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </footer>
     </div>

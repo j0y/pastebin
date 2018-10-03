@@ -31,7 +31,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <pre><code class="{{ $snippet->syntax }}">{{ $snippet->code }}</code></pre>
+                        <pre><code class="{{ is_null($snippet->syntax) ? "nohighlight" : $snippet->syntax }}">{{ $snippet->code }}</code></pre>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use \App\Snippet;
+use Illuminate\Support\Facades\Auth;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,9 @@ class ComposerServiceProvider extends ServiceProvider
     {
         View::composer('layouts.app', function($view){
            $view->with('publicSnippets', Snippet::latest()->public()->take(10)->get());
+           if (Auth::check()) {
+               $view->with('mySnippets', Auth::user()->snippets()->latest()->take(10)->get());
+           }
         });
     }
 
