@@ -18,8 +18,8 @@ class CreateSnippetsTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->uuid('uuid')->unique();
-            $table->string('title');
-            $table->text('code');
+            $table->string('title')->nullable();
+            $table->text('code')->nullable();
             $table->dateTime('expiration')->nullable();
             $table->enum('access', ['public', 'unlisted', 'private']);
             $table->string('syntax')->nullable();

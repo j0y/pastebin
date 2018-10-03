@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Snippet extends Model
 {
@@ -11,13 +12,17 @@ class Snippet extends Model
     const ACCESS_PRIVATE = 'private';
 
     /**
-     *  Setup model event hooks
+     * The "booting" method of the model.
+     *
+     * @return void
      */
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
-        self::creating(function ($model) {
-            $model->uuid = uniqid();
+
+        static::addGlobalScope('notExpired', function (Builder $builder) {
+            $builder->whereDate('expiration', '>', date("Y-m-d H:i:s"))
+                    ->orWhereNull('expiration');
         });
     }
 
@@ -25,7 +30,9 @@ class Snippet extends Model
         'title',
         'code',
         'access',
-        'syntax'
+        'syntax',
+        'expiration',
+        'uuid'
     ];
 
     static public function accessStates()

@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    $snippets = \App\Snippet::all();
-    return view('welcome')->withSnippets($snippets);
-});
+
+Route::get('/', 'SnippetController@index');
+Route::post('/', 'SnippetController@submit');
 
 Auth::routes();
 
