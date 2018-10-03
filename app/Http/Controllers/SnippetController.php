@@ -53,10 +53,10 @@ class SnippetController extends Controller
         Snippet::create([
             'user_id' => (Auth::check()) ? Auth::id() : null,
             'title' => $title,
-            'code' => $validatedData['code'],
+            'code' => isset($validatedData['code']) ? $validatedData['code'] : null,
             'expiration' => $expiration,
             'access' => $validatedData['access'],
-            'syntax' => $validatedData['syntax'],
+            'syntax' => isset($validatedData['syntax']) ? $validatedData['syntax'] : null,
             'uuid' => $uuid
         ]);
 
