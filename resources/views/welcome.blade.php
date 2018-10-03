@@ -57,13 +57,9 @@
             @endif
             <div class="row">
                 <div class="form-group text-center">
-                    <button type="submit" id="submit" class="btn btn-lg">Submit</button>
+                    <button type="submit" id="submit" class="btn btn-outline-success btn-lg">Submit</button>
                 </div>
             </div>
         </form>
-
-        @foreach ($snippets as $snippet)
-            <a href="{{ $snippet->uuid }}">{{ $snippet->title }}</a>
-        @endforeach
     </div>
 @endsection

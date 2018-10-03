@@ -12,8 +12,7 @@ class SnippetController extends Controller
 {
     public function index()
     {
-        $snippets = Snippet::latest()->public()->take(10)->get();
-        return view('welcome')->withSnippets($snippets);
+        return view('welcome');
     }
 
     public function submit(Request $request)

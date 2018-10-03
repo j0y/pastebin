@@ -78,6 +78,16 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <footer>
+            <div class="container">
+                Last public snippets:
+                <ul>
+                @foreach ($publicSnippets as $snippet)
+                    <li><a href="{{ $snippet->uuid }}">{{ $snippet->title }}</a></li>
+                @endforeach
+                </ul>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
