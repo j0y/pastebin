@@ -8,13 +8,31 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Access</th>
+                            <th>Created</th>
+                            <th>Expiration</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($snippets as $snippet)
+                            <tr>
+                                <td><a href="{{ $snippet->uuid }}">{{ $snippet->title }}</a></td>
+                                <td>{{ $snippet->access }}</td>
+                                <td>{{ $snippet->created_at }}</td>
+                                <td>{{ $snippet->expiration }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4">No snippets found.</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                    {{ $snippets->links() }}
                 </div>
             </div>
         </div>
