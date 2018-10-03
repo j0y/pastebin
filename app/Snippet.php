@@ -27,6 +27,7 @@ class Snippet extends Model
     }
 
     protected $fillable = [
+        'user_id',
         'title',
         'code',
         'access',

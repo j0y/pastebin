@@ -52,7 +52,7 @@ class SnippetController extends Controller
         }
 
         Snippet::create([
-            'userId' => (Auth::check()) ? Auth::id() : null,
+            'user_id' => (Auth::check()) ? Auth::id() : null,
             'title' => $title,
             'code' => $validatedData['code'],
             'expiration' => $expiration,
@@ -68,14 +68,14 @@ class SnippetController extends Controller
     public function view($uuid, Request $request){
         $snippet = Snippet::where('uuid', $uuid)->firstOrFail();
 
-        $isSameUser = (Auth::user() == $snippet->user && is_null($snippet->userId));
+        $isSameUser = !is_null($snippet->user_id) && (Auth::user() == $snippet->user);
 
-        if ($snippet->access == "private" && !$isSameUser) {
+        if ($snippet->access == Snippet::ACCESS_PRIVATE && !$isSameUser) {
             abort('404');
         }
 
         return view('view', [
-            'username' => ($snippet->userId != 0) ? $snippet->user->name : "Guest",
+            'username' => is_null($snippet->user_id) ? "Guest" : $snippet->user->name,
             'snippet' => $snippet,
         ]);
     }

@@ -14,8 +14,8 @@
 
 Route::get('/', 'SnippetController@index');
 Route::post('/', 'SnippetController@submit');
-Route::get('/{uuid}', 'SnippetController@view');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/{uuid}', 'SnippetController@view');
